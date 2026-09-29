@@ -9,6 +9,9 @@ TORCH_INDEX="https://download.pytorch.org/whl/cu130"
 TORCH_VERSION="2.9.1"
 TORCHVISION_VERSION="0.24.1"
 TORCHCODEC_SPEC="torchcodec==0.8.*"     # torchcodec 0.8 is the release built against torch 2.9
+# CPU build: the cu130 build needs NVIDIA NPP (libnppicc.so.13), which isn't installed, and
+# LeRobot decodes dataset videos on CPU in dataloader workers anyway.
+TORCHCODEC_INDEX="https://download.pytorch.org/whl/cpu"
 LEROBOT_SPEC="lerobot[libero,smolvla,pi]==0.6.1"
 
 mkdir -p "$VLA_STORAGE/logs"
@@ -37,8 +40,8 @@ conda activate "$CONDA_ENV_NAME"
 python -m pip install --upgrade pip
 
 echo ">> Installing torch $TORCH_VERSION (cu130) first so later installs keep this build"
-pip install "torch==$TORCH_VERSION" "torchvision==$TORCHVISION_VERSION" "$TORCHCODEC_SPEC" \
-    --index-url "$TORCH_INDEX"
+pip install "torch==$TORCH_VERSION" "torchvision==$TORCHVISION_VERSION" --index-url "$TORCH_INDEX"
+pip install --no-deps "$TORCHCODEC_SPEC" --index-url "$TORCHCODEC_INDEX"
 
 echo ">> Installing $LEROBOT_SPEC"
 # egl_probe's CMakeLists predates CMake 4; this lets CMake 4 still configure it.
