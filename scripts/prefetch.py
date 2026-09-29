@@ -17,6 +17,9 @@ from huggingface_hub.errors import GatedRepoError
 
 DEFAULT_MODELS = ["lerobot/pi05_libero_finetuned"]
 
+# Few parallel downloads: the login node limits threads per user.
+MAX_WORKERS = 2
+
 # Policies load only the tokenizer from these base VLM repos; skip the multi-GB weights.
 TOKENIZER_REPOS = {
     "pi0": "google/paligemma-3b-pt-224",
@@ -50,7 +53,7 @@ def setup_libero_assets(libero_pkg_dir: Path) -> None:
     Linking our copy there keeps assets in project storage and jobs offline.
     """
     assets_dir = Path(os.environ["LIBERO_ASSETS_DIR"])
-    snapshot_download(repo_id=LIBERO_ASSETS_REPO, repo_type="dataset", local_dir=assets_dir)
+    snapshot_download(repo_id=LIBERO_ASSETS_REPO, repo_type="dataset", local_dir=assets_dir, max_workers=MAX_WORKERS)
 
     pkg_assets = libero_pkg_dir / "assets"
     if pkg_assets.is_symlink() or not pkg_assets.exists():
@@ -63,14 +66,14 @@ def setup_libero_assets(libero_pkg_dir: Path) -> None:
 
 
 def fetch_model(repo_id: str) -> None:
-    path = snapshot_download(repo_id=repo_id)
+    path = snapshot_download(repo_id=repo_id, max_workers=MAX_WORKERS)
     print(f"{repo_id} -> {path}")
 
     policy_type = _read_policy_type(Path(path) / "config.json")
     tokenizer_repo = TOKENIZER_REPOS.get(policy_type)
     if tokenizer_repo:
         try:
-            snapshot_download(repo_id=tokenizer_repo, allow_patterns=TOKENIZER_FILES)
+            snapshot_download(repo_id=tokenizer_repo, allow_patterns=TOKENIZER_FILES, max_workers=MAX_WORKERS)
             print(f"  tokenizer {tokenizer_repo} cached")
         except GatedRepoError:
             sys.exit(
