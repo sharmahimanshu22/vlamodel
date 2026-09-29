@@ -1,0 +1,89 @@
+Sender: LSF System <lsfadmin@lg07c01>
+Subject: Job 271645954: <check_env_20260929_094115> in cluster <chimera> Exited
+
+Job <check_env_20260929_094115> was submitted from host <li04e02> by user <sharmh15> in cluster <chimera> at Tue Sep 29 09:41:15 2026
+Job was executed on host(s) <lg07c01>, in queue <gpu>, as user <sharmh15> in cluster <chimera> at Tue Sep 29 09:41:16 2026
+</hpc/users/sharmh15> was used as the home directory.
+</hpc/users/sharmh15/labhome/karnuz/vlamodel> was used as the working directory.
+Started at Tue Sep 29 09:41:16 2026
+Terminated at Tue Sep 29 09:41:34 2026
+Results reported at Tue Sep 29 09:41:34 2026
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+/hpc/users/sharmh15/labhome/karnuz/vlamodel/lsf/job_wrapper.sh /hpc/users/sharmh15/labhome/karnuz/vlamodel/runs/check_env_20260929_094115 /sc/arion/projects/pejaverlab/users/sharmh15/karnuz/vlamodel/jobs/check_env.sh
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   4.00 sec.
+    Max Memory :                                 306 MB
+    Average Memory :                             182.73 MB
+    Total Requested Memory :                     64000.00 MB
+    Delta Memory :                               63694.00 MB
+    Max Swap :                                   -
+    Max Processes :                              6
+    Max Threads :                                11
+    Run time :                                   18 sec.
+    Turnaround time :                            19 sec.
+
+The output (if any) follows:
+
+== host lg07c01  job 271645954  start 2026-09-29T09:41:18-04:00
+NVIDIA A100-PCIE-40GB, 40960 MiB, 580.126.09
+== running: /sc/arion/projects/pejaverlab/users/sharmh15/karnuz/vlamodel/jobs/check_env.sh 
+python 3.12.14
+MUJOCO_GL=egl
+HF_HOME=/hpc/users/sharmh15/labhome/karnuz/vlamodel/storage/hf_home
+HF_HUB_OFFLINE=1
+LIBERO_CONFIG_PATH=/hpc/users/sharmh15/labhome/karnuz/vlamodel/storage/libero_config
+CUDA_VISIBLE_DEVICES=0
+
+== torch
+torch 2.9.1+cu130 | cuda 13.0 | available True
+device: NVIDIA A100-PCIE-40GB
+bf16 4096^2 matmul x10: 0.484s
+
+== torchcodec
+Traceback (most recent call last):
+  File "/sc/arion/projects/pejaverlab/users/sharmh15/karnuz/vlamodel/scripts/check_env.py", line 85, in <module>
+    main()
+  File "/sc/arion/projects/pejaverlab/users/sharmh15/karnuz/vlamodel/scripts/check_env.py", line 75, in main
+    check_torchcodec()
+  File "/sc/arion/projects/pejaverlab/users/sharmh15/karnuz/vlamodel/scripts/check_env.py", line 36, in check_torchcodec
+    import torchcodec
+  File "/sc/arion/work/sharmh15/test-env/envs/lerobot/lib/python3.12/site-packages/torchcodec/__init__.py", line 10, in <module>
+    from . import decoders, samplers  # noqa
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/sc/arion/work/sharmh15/test-env/envs/lerobot/lib/python3.12/site-packages/torchcodec/decoders/__init__.py", line 7, in <module>
+    from .._core import AudioStreamMetadata, VideoStreamMetadata
+  File "/sc/arion/work/sharmh15/test-env/envs/lerobot/lib/python3.12/site-packages/torchcodec/_core/__init__.py", line 8, in <module>
+    from ._metadata import (
+  File "/sc/arion/work/sharmh15/test-env/envs/lerobot/lib/python3.12/site-packages/torchcodec/_core/_metadata.py", line 16, in <module>
+    from torchcodec._core.ops import (
+  File "/sc/arion/work/sharmh15/test-env/envs/lerobot/lib/python3.12/site-packages/torchcodec/_core/ops.py", line 84, in <module>
+    load_torchcodec_shared_libraries()
+  File "/sc/arion/work/sharmh15/test-env/envs/lerobot/lib/python3.12/site-packages/torchcodec/_core/ops.py", line 69, in load_torchcodec_shared_libraries
+    raise RuntimeError(
+RuntimeError: Could not load libtorchcodec. Likely causes:
+          1. FFmpeg is not properly installed in your environment. We support
+             versions 4, 5, 6, and 7 on all platforms, and 8 on Mac and Linux.
+          2. The PyTorch version (2.9.1+cu130) is not compatible with
+             this version of TorchCodec. Refer to the version compatibility
+             table:
+             https://github.com/pytorch/torchcodec?tab=readme-ov-file#installing-torchcodec.
+          3. Another runtime dependency; see exceptions below.
+        The following exceptions were raised as we tried to load libtorchcodec:
+        
+[start of libtorchcodec loading traceback]
+FFmpeg version 8: Could not load this library: /sc/arion/work/sharmh15/test-env/envs/lerobot/lib/python3.12/site-packages/torchcodec/libtorchcodec_core8.so
+FFmpeg version 7: Could not load this library: /sc/arion/work/sharmh15/test-env/envs/lerobot/lib/python3.12/site-packages/torchcodec/libtorchcodec_core7.so
+FFmpeg version 6: Could not load this library: /sc/arion/work/sharmh15/test-env/envs/lerobot/lib/python3.12/site-packages/torchcodec/libtorchcodec_core6.so
+FFmpeg version 5: Could not load this library: /sc/arion/work/sharmh15/test-env/envs/lerobot/lib/python3.12/site-packages/torchcodec/libtorchcodec_core5.so
+FFmpeg version 4: Could not load this library: /sc/arion/work/sharmh15/test-env/envs/lerobot/lib/python3.12/site-packages/torchcodec/libtorchcodec_core4.so
+[end of libtorchcodec loading traceback].
+== finished with exit code 1 at 2026-09-29T09:41:34-04:00

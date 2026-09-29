@@ -1,0 +1,11 @@
+run_id: check_env_20260929_094115
+job_script: /sc/arion/projects/pejaverlab/users/sharmh15/karnuz/vlamodel/jobs/check_env.sh
+args: 
+git_commit: 13b6e1b
+git_dirty: no
+lsf: queue=gpu gpu=a100 ncpu=1 mem_mb=64000 walltime=00:20
+submitted: 2026-09-29T09:41:15-04:00
+exit_code: 1
+host: lg07c01
+lsf_job_id: 271645954
+duration_s: 16
