@@ -33,10 +33,33 @@ def check_torch() -> None:
 
 def check_torchcodec() -> None:
     section("torchcodec")
-    import torchcodec
-    from torchcodec.decoders import VideoDecoder  # noqa: F401  (fails if FFmpeg libs are missing)
-
+    try:
+        import torchcodec
+        from torchcodec.decoders import VideoDecoder  # noqa: F401  (fails if FFmpeg libs are missing)
+    except RuntimeError:
+        _explain_torchcodec_load_failure()
+        raise
     print("torchcodec", torchcodec.__version__)
+
+
+def _explain_torchcodec_load_failure() -> None:
+    """torchcodec hides the loader error; dlopen its libraries directly to show the real cause."""
+    import ctypes
+    import importlib.util
+    from importlib.metadata import version
+
+    import torch  # noqa: F401  (loads libtorch symbols the torchcodec libraries link against)
+
+    print("torchcodec", version("torchcodec"), "- real loader errors:")
+    pkg_dir = Path(importlib.util.find_spec("torchcodec").submodule_search_locations[0])
+    for lib in sorted(pkg_dir.glob("libtorchcodec_core*.so")):
+        try:
+            ctypes.CDLL(str(lib))
+            print(f"  OK   {lib.name}")
+        except OSError as e:
+            print(f"  FAIL {lib.name}: {e}")
+    env_lib = Path(sys.prefix) / "lib"
+    print("  FFmpeg libs in env:", sorted(p.name for p in env_lib.glob("libavcodec.so.*")) or "none")
 
 
 def check_libero_render(out_dir: Path) -> None:
