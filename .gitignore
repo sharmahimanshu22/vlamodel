@@ -1,0 +1,17 @@
+# Large/local data: HF cache, LIBERO assets, checkpoints, logs, HF token
+storage/
+
+# Run dirs: keep small text results (logs, json, run_info), drop heavy artifacts
+runs/**/*.mp4
+runs/**/*.safetensors
+runs/**/*.pt
+runs/**/*.pth
+runs/**/checkpoints/
+runs/**/wandb/
+
+# Local notes about the server
+serverinfo/
+
+__pycache__/
+*.pyc
+.DS_Store
