@@ -1,0 +1,28 @@
+python 3.12.14
+MUJOCO_GL=egl
+HF_HOME=/hpc/users/sharmh15/labhome/karnuz/vlamodel/storage/hf_home
+HF_HUB_OFFLINE=1
+LIBERO_CONFIG_PATH=/hpc/users/sharmh15/labhome/karnuz/vlamodel/storage/libero_config
+CUDA_VISIBLE_DEVICES=0
+
+== torch
+torch 2.9.1+cu130 | cuda 13.0 | available True
+device: NVIDIA A100-PCIE-40GB
+bf16 4096^2 matmul x10: 0.253s
+
+== torchcodec
+torchcodec 0.8.1
+
+== LIBERO render (EGL)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /sc/arion/work/sharmh15/test-env/envs/lerobot/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+task: pick up the black bowl between the plate and the ramekin and place it on the plate
+agentview_image (256, 256, 3) uint8 mean pixel 119.72769165039062
+saved /hpc/users/sharmh15/labhome/karnuz/vlamodel/runs/check_env_20260929_095147/libero_render.png
+
+== lerobot
+lerobot 0.6.1
+
+ALL CHECKS PASSED
