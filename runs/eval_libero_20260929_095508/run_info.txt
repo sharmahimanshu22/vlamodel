@@ -1,0 +1,11 @@
+run_id: eval_libero_20260929_095508
+job_script: /sc/arion/projects/pejaverlab/users/sharmh15/karnuz/vlamodel/jobs/eval_libero.sh
+args: lerobot/pi05_libero_finetuned libero_spatial 1 --env.task_ids=[0] --policy.n_action_steps=10
+git_commit: 93dfa29
+git_dirty: no
+lsf: queue=gpu gpu=a100 ncpu=1 mem_mb=64000 walltime=00:30
+submitted: 2026-09-29T09:55:08-04:00
+exit_code: 0
+host: lg07c01
+lsf_job_id: 271646148
+duration_s: 763
